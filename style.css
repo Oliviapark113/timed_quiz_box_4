@@ -7,7 +7,7 @@
 }
 
 body{
-    font-family: 'Grenze Gotisch', cursive;
+    font-family: 'Righteous', cursive;
     color: white;
     background-color: white;
     font-size: 20px;
@@ -32,7 +32,6 @@ body{
      padding:10px;
      border-radius: 5px;
      background-color:#fafafa;
-     font-family: 'Grenze Gotisch', cursive;
      font-size : 20px;
      color:  #ff4081;
      cursor: pointer;
@@ -115,7 +114,6 @@ body{
     margin: 20px;
     border-radius: 5px;
     width: 100%;
-    font-family:'Grenze Gotisch';
     font-size: 18 px;
     cursor: pointer;
 }
@@ -129,7 +127,6 @@ body{
     padding: 20px;
     margin: 10px;
     border-radius: 8px;
-    font-family:'Grenze Gotisch';
     font-size: 22px;
     text-align: left;
     
@@ -145,25 +142,9 @@ body{
     margin: 10px auto;
     border-radius: 5px;
     width: 100%;
-    font-family:'Grenze Gotisch';
     font-size: 18 px;
     cursor: pointer;
 }
-
-/* .quiz-box .btn{ 
-    margin-top: 18px;
-    padding:10px;
-    border-radius: 5px;
-    background-color:#fafafa;
-    font-family: 'Grenze Gotisch', cursive;
-    font-size : 20px;
-    color: #fafafa;
-    cursor: pointer;
-    display: inline-block;
-    margin-left: 20px;
-    
-} */
-
 
 .result-box h3 {
     text-align: center;
