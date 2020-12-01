@@ -37,6 +37,19 @@ var questions = [
         question: " How many days in the month of April ? ",
         options: ["A: 29days", "B: 28days", "C: 30days", "D:31days"],
         answer: "C: 30days"
+    },
+
+    {
+        question: " What color is banana? ",
+        options: ["A: Green", "B: Yellow", "C: Orange", "D: Blue"],
+        answer: "B: Yellow"
+    },
+
+
+    {
+        question: " Who played movie 007 the most ? ",
+        options: ["A: Sean Connery", "B: Daniel Craig", "C: Pierce Brosnan", "D: Rodger Moore"],
+        answer: "A: Sean Connery"
     }
 
 ]
@@ -72,8 +85,8 @@ var optBtnD = document.querySelector("#optBtnD");
 //functions
 function iterate() {
 
-    if (questionCounter < 5) {
-        // comparing with previous answer if it is correct or not depending on which choice they pick line 76 - 106
+    if (questionCounter < 7) {
+        // comparing with previous answer to match buttons and options 
         var previousAnswer = ""
         if (this.textContent == "A") {
             previousAnswer = questions[questionCounter - 1].options[0]
@@ -105,7 +118,6 @@ function iterate() {
 
         }
         // add question text and options.. line 109 -116 means only one page question & options
-
        
         questionNumber.textContent = questionNumList[questionCounter]
 
@@ -128,11 +140,15 @@ function iterate() {
 
 
 
-
 function saveScore(){
-    localStorage.setItem("total-correct", correctCounter)
-    localStorage.setItem("total-incorrect", incorrectCounter)
-    localStorage.setItem("total-score", score)
+    // localStorage.setItem("total-correct", correctCounter)
+    // localStorage.setItem("total-incorrect", incorrectCounter)
+    // localStorage.setItem("total-score", score)
+
+     localStorage.setItem("userScores", JSON.stringify({totalCorrect:correctCounter,
+      totalIncorrect:incorrectCounter,
+        totalScore:score}))
+ 
 
 }
 
@@ -149,7 +165,7 @@ function startQuiz() {
     var interval = setInterval(function () {
         timeleft--;
         remaining.textContent = timeleft
-        if (timeleft <= 0 || questionCounter >= 6) {
+        if (timeleft <= 0 || questionCounter >= 8) {
             clearInterval(interval);
             qb.setAttribute("class", "hide");
             tBtn.setAttribute("class", "btn");
