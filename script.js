@@ -1,10 +1,12 @@
 //Array of Objects.
 var questionNumList = [
-    "Question 1 of 5 ",
-    "Question 2 of 5 ",
-    "Question 3 of 5 ",
-    "Question 4 of 5 ",
-    "Question 5 of 5 "
+    "Question 1 of 7 ",
+    "Question 2 of 7 ",
+    "Question 3 of 7 ",
+    "Question 4 of 7 ",
+    "Question 5 of 7 ",
+    "Question 6 of 7 ",
+    "Question 7 of 7 "
 ]
 
 var questions = [
@@ -109,7 +111,7 @@ function iterate() {
             if (previousAnswer == questions[questionCounter - 1].answer) {
                 score += 2
                 correctCounter++
-                //  console.log("correct " + score + "      " +correctCounter)
+               
             }
             if (previousAnswer !== questions[questionCounter - 1].answer) {
                 score -= 1
@@ -135,15 +137,12 @@ function iterate() {
 
     questionCounter++
     saveScore()
-    // localStorage.setItem("scorenumber", score);
+   
 }
 
 
 
 function saveScore(){
-    // localStorage.setItem("total-correct", correctCounter)
-    // localStorage.setItem("total-incorrect", incorrectCounter)
-    // localStorage.setItem("total-score", score)
 
      localStorage.setItem("userScores", JSON.stringify({totalCorrect:correctCounter,
       totalIncorrect:incorrectCounter,
