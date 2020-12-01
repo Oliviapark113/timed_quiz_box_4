@@ -43,8 +43,8 @@ var questions = [
 //Assign code
 var remaining = document.querySelector(".timeremaining");
 
-var score = 0;
 var questionCounter = 0;
+var score = 0;
 var correctCounter = 0
 var incorrectCounter = 0
 
@@ -122,7 +122,18 @@ function iterate() {
     }
 
     questionCounter++
-    localStorage.setItem("scorenumber", score);
+    saveScore()
+    // localStorage.setItem("scorenumber", score);
+}
+
+
+
+
+function saveScore(){
+    localStorage.setItem("total-correct", correctCounter)
+    localStorage.setItem("total-incorrect", incorrectCounter)
+    localStorage.setItem("total-score", score)
+
 }
 
 
