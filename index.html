@@ -1,94 +1,93 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-        <link href="css/hover.css" rel="stylesheet" media="all">
-        <link rel="stylesheet" href="style.css">
-        <title>MyJavascriptQuiz</title>
-    </head>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link href="css/hover.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="style.css">
+    <title>MyJavascriptQuiz</title>
+</head>
 
-    <body>
-        <div id="hb" class="container home-box custom-box">
-            <h3>Let's play Quiz</h3>
-            <p>Total Number of questions: <span class="total-question">7</span></p>
-            <button type="button" id="startBtn" class="btn ">Start Quiz</button>
+<body>
+    <div id="hb" class="container home-box custom-box">
+        <h3>Let's play Quiz</h3>
+        <p>Total Number of questions: <span class="total-question">7</span></p>
+        <button type="button" id="startBtn" class="btn ">Start Quiz</button>
+    </div>
+
+    <div id="qb" class="container quiz-box custom-box hide">
+        <div class="question-number">
+
         </div>
-
-        <div id="qb" class="container quiz-box custom-box hide">
-            <div class="question-number">
-
+        <div class="question-text"></div>
+        <div class="option-container">
+            <div>
+                <p class="option1"></p>
             </div>
-            <div class="question-text"></div>
-            <div class="option-container">
-                <div>
-                    <p class="option1"></p>
-                </div>
-                <div>
-                    <p class="option2"></p>
-                </div>
-                <div>
-                    <p class="option3"></p>
-                </div>
-                <div>
-                    <p class="option4"></p>
-                </div>
-
+            <div>
+                <p class="option2"></p>
             </div>
-            <!-- <div class="answers-indicator"> -->
-            <button type="button" id="optBtnA" class="optBtn rounded-circle hvr-pulse">A</button>
-            <button type="button" id="optBtnB" class="optBtn rounded-circle hvr-pulse">B</button>
-            <button type="button" id="optBtnC" class="optBtn rounded-circle hvr-pulse">C</button>
-            <button type="button" id="optBtnD" class="optBtn rounded-circle hvr-pulse">D</button>
-            <!-- </div> -->
-            <div class="user-result"><span class="user-score"></span></div>
-            <p id="countdown">Time Remaining:<span class="timeremaining">30</span></p>
+            <div>
+                <p class="option3"></p>
+            </div>
+            <div>
+                <p class="option4"></p>
+            </div>
+
         </div>
+        <!-- <div class="answers-indicator"> -->
+        <button type="button" id="optBtnA" class="optBtn rounded-circle hvr-pulse">A</button>
+        <button type="button" id="optBtnB" class="optBtn rounded-circle hvr-pulse">B</button>
+        <button type="button" id="optBtnC" class="optBtn rounded-circle hvr-pulse">C</button>
+        <button type="button" id="optBtnD" class="optBtn rounded-circle hvr-pulse">D</button>
+        <!-- </div> -->
+        <div class="user-result"><span class="user-score"></span></div>
+        <p id="countdown">Time Remaining:<span class="timeremaining">30</span></p>
+    </div>
 
-        <div id="rb" class="container result-box custom-box hide">
-            <h3>Quiz Results</h3>
-            <table>
-                <tr>
-                    <td>Total Question</td>
-                    <td><span class="result-counter">7</span></td>
-                </tr>
-                <tr>
-                    <td>Time remaining </td>
-                    <td><span class="result-counter">0</span></td>
-                </tr>
-                <tr>
-                    <td>Total correct = </td>
-                    <td><span id="correct" class="result-counter"></span></td>
-                </tr>
-                <tr>
-                    <td>Total incorrect = </td>
-                    <td><span id="wrong" class="result-counter"></span></td>
-                </tr>
-                <tr>
-                    <td>Total ccores = </td>
-                    <td><span id="total" class="result-counter"></span></td>
-                </tr>
-                <tr>
-                    <td>High scores = </td>
-                    <td><span id="highScore" class="result-counter"></span></td>
-                </tr>
-                <tr>
-                    <td>Winner initial = </td>
-                    <td><span id="winnerInitial" class="result-counter"></span></td>
-                </tr>
-            </table>
-            <button type="button" id= "tryagainBtn" class="hvr-grow btn">Try Again</button>
-        
-        </div>
+    <div id="rb" class="container result-box custom-box hide">
+        <h3>Quiz Results</h3>
+        <table>
+            <tr>
+                <td>Total Question</td>
+                <td><span class="result-counter">7</span></td>
+            </tr>
+            <tr>
+                <td>Time remaining </td>
+                <td><span class="result-counter">0</span></td>
+            </tr>
+            <tr>
+                <td>Total correct = </td>
+                <td><span id="correct" class="result-counter"></span></td>
+            </tr>
+            <tr>
+                <td>Total incorrect = </td>
+                <td><span id="wrong" class="result-counter"></span></td>
+            </tr>
+            <tr>
+                <td>Total scores = </td>
+                <td><span id="total" class="result-counter"></span></td>
+            </tr>
+            <tr>
+                <td>High scores = </td>
+                <td><span id="highScore" class="result-counter"></span></td>
+            </tr>
+            <tr>
+                <td>Winner initial = </td>
+                <td><span id="winnerInitial" class="result-counter"></span></td>
+            </tr>
+        </table>
+        <button type="button" id="tryagainBtn" class="hvr-grow btn">Try Again</button>
 
-        <!-- <script src="script1.js"></script> -->
-        <script src="script.js"></script>
+    </div>
+
+    <script src="script.js"></script>
 
 
-    </body>
+</body>
 
-    </html>
+</html>

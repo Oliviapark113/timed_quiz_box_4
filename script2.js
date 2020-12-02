@@ -59,12 +59,13 @@ var questions = [
 var remaining = document.querySelector(".timeremaining");
 
 var questionCounter = 0;
+var score = 0;
 var correctCounter = 0;
 var incorrectCounter = 0;
-var score = 0;
+var timeleft = 60;
 var userInitials;
 var highscore = JSON.parse(localStorage.getItem("highscores")) || []
-var timeleft = 60;
+console.log(highscore);
 
 var startButton = document.querySelector("#startBtn");
 var userscore = document.querySelector(".user-score");
@@ -92,38 +93,39 @@ function iterate() {
 
     if (questionCounter < 7) {
         // comparing with previous answer to match buttons and options 
-        var previousAnswer = ""
+        var currentAnswer = ""
         if (this.textContent == "A") {
-            previousAnswer = questions[questionCounter - 1].options[0]
-
+            currentAnswer = questions[questionCounter].options[0]
+            // console.log(previousAnswer)
         }
         else if (this.textContent == "B") {
-            previousAnswer = questions[questionCounter - 1].options[1]
+            currentAnswer = questions[questionCounter].options[1]
         }
 
         else if (this.textContent == "C") {
-            previousAnswer = questions[questionCounter - 1].options[2]
+            currentAnswer = questions[questionCounter].options[2]
         }
 
         else if (this.textContent == "D") {
-            previousAnswer = questions[questionCounter - 1].options[3]
+            currentAnswer = questions[questionCounter].options[3]
         }
 
         if (questionCounter != 0) {
 
-            if (previousAnswer == questions[questionCounter - 1].answer) {
-                score += 2;
-                correctCounter++;
-
+            if (currentAnswer == questions[questionCounter].answer) {
+                score += 2
+                correctCounter++
+               
             }
-            if (previousAnswer !== questions[questionCounter - 1].answer) {
+            if (currentAnswer !== questions[questionCounter].answer) {
                 score -= 1
-                incorrectCounter++;
-                timeleft -= 5;
+                incorrectCounter++
+                timeleft-=5
             }
 
         }
-
+        // add question text and options.. line 109 -116 means only one page question & options
+       
         questionNumber.textContent = questionNumList[questionCounter]
 
         questionText.textContent = questions[questionCounter].question
@@ -134,31 +136,34 @@ function iterate() {
         //add user scores 
         userscore.textContent = "Your Current score is: " + score + "\nYou have gotten " + correctCounter + " questions correct and "
             + incorrectCounter + " incorrect."
-
-
+        
+    
     }
 
     questionCounter++
     saveScore()
+   
+}
+
+
+function saveScore(){
+     highscore =0;
+     localStorage.setItem("userScores", JSON.stringify(
+         { 
+        //  intial:initialScore,
+           totalCorrect:correctCounter,
+           totalIncorrect:incorrectCounter,
+           totalScore:score}))
+
+       if(highscore < score) {
+           localStorage.setItem("highscores", JSON.stringify({highscore:score
+            ,initial:userInitials}))
+            // highscore.push(score);
+        }
+ 
 
 }
 
-function saveScore() {
-    highscore = 0;
-    localStorage.setItem("userScores", JSON.stringify(
-        {
-            totalCorrect: correctCounter,
-            totalIncorrect: incorrectCounter,
-            totalScore: score
-        }))
-
-    if (highscore < score) {
-        localStorage.setItem("highscores", JSON.stringify({
-            highscore: score
-            , initial: userInitials
-        }))
-    }
-}
 
 var totalQuestionC = document.querySelector("#correct")
 var totalQuestionI = document.querySelector("#wrong")
@@ -167,14 +172,14 @@ var highScore = document.querySelector("#highScore")
 var winnerInitial = document.querySelector("#winnerInitial")
 
 function startQuiz() {
-    userInitials = prompt("Please enter your initial.")
+     userInitials = prompt("Please enter your initial.")
     iterate();
     hb.setAttribute("class", "hide")
     qb.setAttribute("class", "quiz-box custom-box")
 
     timeleft = 60;
     var interval = setInterval(function () {
-
+        
         timeleft--;
         remaining.textContent = timeleft
         if (timeleft <= 0 || questionCounter >= 8) {
@@ -186,8 +191,8 @@ function startQuiz() {
             totalQuestionC.textContent = correctCounter;
             totalQuestionI.textContent = incorrectCounter;
             total.textContent = score;
-            highScore.textContent = score;
-            winnerInitial.textContent = userInitials;
+            highScore.textContent=score;
+            winnerInitial.textContent=userInitials;
 
             rb.setAttribute("class", "result-box custom-box")
 
@@ -199,7 +204,7 @@ function startQuiz() {
 //return to first homepage 
 function bktoStart() {
 
-    hb.setAttribute("class", "home-box custom-box");
+    hb.setAttribute("class","home-box custom-box");
     rb.classList.add("hide");
     tBtn.classList.add("hide");
     questionCounter = 0;
@@ -216,7 +221,7 @@ optBtnC.addEventListener("click", iterate)
 optBtnD.addEventListener("click", iterate)
 
 tBtn.addEventListener("click", bktoStart)
-
+// tBtn.addEventListener("click", iterate)
 
 
 
