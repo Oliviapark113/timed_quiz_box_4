@@ -62,6 +62,9 @@ var questionCounter = 0;
 var score = 0;
 var correctCounter = 0
 var incorrectCounter = 0
+var highscore =0;
+var timeleft = 60;
+var userInitials;
 
 var userscore = document.querySelector(".user-score");
 var startButton = document.querySelector("#startBtn");
@@ -116,6 +119,7 @@ function iterate() {
             if (previousAnswer !== questions[questionCounter - 1].answer) {
                 score -= 1
                 incorrectCounter++
+                timeleft-=5
             }
 
         }
@@ -141,12 +145,33 @@ function iterate() {
 }
 
 
-
 function saveScore(){
+    
+    // var initialScore = [];
+    // //get local storage, parse it into array
+    //     //what if there is or isnt something already there 
 
-     localStorage.setItem("userScores", JSON.stringify({totalCorrect:correctCounter,
-      totalIncorrect:incorrectCounter,
-        totalScore:score}))
+    // //get users initals
+   
+    // //put initals and score into an object
+    // let scoreOb = {
+    //     initials: usersInitials,
+    //     score:score
+    // }
+    //put object into array
+
+     localStorage.setItem("userScores", JSON.stringify(
+         { 
+            //  intial:initialScore,
+             totalCorrect:correctCounter,
+           totalIncorrect:incorrectCounter,
+           totalScore:score}))
+
+       if(highscore < score) {
+           localStorage.setItem("highScores", JSON.stringify(
+            { totalScore:score
+            ,winnerInitial:userInitials}))
+        }
  
 
 }
@@ -157,11 +182,14 @@ var totalQuestionI = document.querySelector("#wrong")
 var total = document.querySelector("#total")
 
 function startQuiz() {
+     userInitials = prompt("whats you initals")
     iterate();
     hb.setAttribute("class", "hide")
     qb.setAttribute("class", "quiz-box custom-box")
-    var timeleft = 30;
+
+    timeleft = 60;
     var interval = setInterval(function () {
+        
         timeleft--;
         remaining.textContent = timeleft
         if (timeleft <= 0 || questionCounter >= 8) {
