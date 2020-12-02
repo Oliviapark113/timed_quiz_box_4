@@ -62,12 +62,14 @@ var questionCounter = 0;
 var score = 0;
 var correctCounter = 0
 var incorrectCounter = 0
-var highscore =0;
+// var highscore =0;
 var timeleft = 60;
 var userInitials;
+var highscore = JSON.parse(localStorage.getItem("highscores")) || []
+console.log(highscore);
 
-var userscore = document.querySelector(".user-score");
 var startButton = document.querySelector("#startBtn");
+var userscore = document.querySelector(".user-score");
 var questionNumber = document.querySelector(".question-number");
 var questionText = document.querySelector(".question-text");
 var optionContainer = document.querySelector(".option-container");
@@ -146,31 +148,18 @@ function iterate() {
 
 
 function saveScore(){
-    
-    // var initialScore = [];
-    // //get local storage, parse it into array
-    //     //what if there is or isnt something already there 
-
-    // //get users initals
-   
-    // //put initals and score into an object
-    // let scoreOb = {
-    //     initials: usersInitials,
-    //     score:score
-    // }
-    //put object into array
-
+     highscore =0;
      localStorage.setItem("userScores", JSON.stringify(
          { 
-            //  intial:initialScore,
-             totalCorrect:correctCounter,
+        //  intial:initialScore,
+           totalCorrect:correctCounter,
            totalIncorrect:incorrectCounter,
            totalScore:score}))
 
        if(highscore < score) {
-           localStorage.setItem("highScores", JSON.stringify(
-            { totalScore:score
-            ,winnerInitial:userInitials}))
+           localStorage.setItem("highscores", JSON.stringify({highscore:score
+            ,initial:userInitials}))
+            // highscore.push(score);
         }
  
 
@@ -180,9 +169,11 @@ function saveScore(){
 var totalQuestionC = document.querySelector("#correct")
 var totalQuestionI = document.querySelector("#wrong")
 var total = document.querySelector("#total")
+var highScore = document.querySelector("#highScore")
+var winnerInitial = document.querySelector("#winnerInitial")
 
 function startQuiz() {
-     userInitials = prompt("whats you initals")
+     userInitials = prompt("Please enter your initial.")
     iterate();
     hb.setAttribute("class", "hide")
     qb.setAttribute("class", "quiz-box custom-box")
@@ -193,12 +184,17 @@ function startQuiz() {
         timeleft--;
         remaining.textContent = timeleft
         if (timeleft <= 0 || questionCounter >= 8) {
+
             clearInterval(interval);
             qb.setAttribute("class", "hide");
             tBtn.setAttribute("class", "btn");
+
             totalQuestionC.textContent = correctCounter;
             totalQuestionI.textContent = incorrectCounter;
             total.textContent = score;
+            highScore.textContent=score;
+            winnerInitial.textContent=userInitials;
+
             rb.setAttribute("class", "result-box custom-box")
 
         }
