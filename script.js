@@ -92,37 +92,37 @@ function iterate() {
 
     if (questionCounter < 7) {
         // comparing with previous answer to match buttons and options 
-        var previousAnswer = ""
+        var currentAnswer = ""
         if (this.textContent == "A") {
-            previousAnswer = questions[questionCounter - 1].options[0]
+            currentAnswer = questions[questionCounter].options[0]
 
         }
         else if (this.textContent == "B") {
-            previousAnswer = questions[questionCounter - 1].options[1]
+            currentAnswer = questions[questionCounter].options[1]
         }
 
         else if (this.textContent == "C") {
-            previousAnswer = questions[questionCounter - 1].options[2]
+            currentAnswer = questions[questionCounter].options[2]
         }
 
         else if (this.textContent == "D") {
-            previousAnswer = questions[questionCounter - 1].options[3]
+            currentAnswer = questions[questionCounter].options[3]
         }
 
-        if (questionCounter != 0) {
+       
 
-            if (previousAnswer == questions[questionCounter - 1].answer) {
+            if (currentAnswer == questions[questionCounter].answer) {
                 score += 2;
                 correctCounter++;
 
             }
-            if (previousAnswer !== questions[questionCounter - 1].answer) {
+            if (currentAnswer !== questions[questionCounter].answer) {
                 score -= 1
                 incorrectCounter++;
                 timeleft -= 5;
             }
 
-        }
+   
 
         questionNumber.textContent = questionNumList[questionCounter]
 
@@ -137,6 +137,7 @@ function iterate() {
 
 
     }
+  
 
     questionCounter++
     saveScore()
