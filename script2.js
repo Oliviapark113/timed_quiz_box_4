@@ -48,23 +48,24 @@ var questions = [
     },
 
 
-    {
+    {   
         question: " Who played movie 007 the most ? ",
         options: ["A: Sean Connery", "B: Daniel Craig", "C: Pierce Brosnan", "D: Rodger Moore"],
         answer: "A: Sean Connery"
     }
 
-]
+];
 //Assign code
 var remaining = document.querySelector(".timeremaining");
 
 var questionCounter = 0;
+var score = 0;
 var correctCounter = 0;
 var incorrectCounter = 0;
-var score = 0;
+var timeleft = 60;
 var userInitials;
 var highscore = JSON.parse(localStorage.getItem("highscores")) || []
-var timeleft = 60;
+console.log(highscore);
 
 var startButton = document.querySelector("#startBtn");
 var userscore = document.querySelector(".user-score");
@@ -75,6 +76,7 @@ var option1 = document.querySelector(".option1");
 var option2 = document.querySelector(".option2");
 var option3 = document.querySelector(".option3");
 var option4 = document.querySelector(".option4");
+var nextBtn = document.querySelector(".nextBtn")
 //container boxes
 var hb = document.querySelector("#hb");
 var qb = document.querySelector("#qb");
@@ -88,87 +90,91 @@ var optBtnC = document.querySelector("#optBtnC");
 var optBtnD = document.querySelector("#optBtnD");
 
 //functions
+var prevAnswer=""
 
 function iterate() {
-    var currentAnswer=""
+   
+   
+    console.log(prevAnswer)
 
-    if (questionCounter < 7) {
+    if ( questionCounter< questions.length) {
         // comparing with previous answer to match buttons and options 
         if (this.textContent == "A") {
-            currentAnswer = questions[questionCounter].options[0]
-
+           prevAnswer = questions[questionCounter-1].options[0]
+            // console.log(previousAnswer)
         }
         else if (this.textContent == "B") {
-            currentAnswer = questions[questionCounter].options[1]
+            prevAnswer = questions[questionCounter-1].options[1]
         }
 
         else if (this.textContent == "C") {
-            currentAnswer = questions[questionCounter].options[2]
+          prevAnswer = questions[questionCounter-1].options[2]
         }
 
         else if (this.textContent == "D") {
-            currentAnswer = questions[questionCounter].options[3]
+            prevAnswer = questions[questionCounter-1].options[3]
         }
- 
-        //validating answer and  counting scores
-    
-        console.log('grading questions')
-        if (currentAnswer == questions[questionCounter].answer) {
-            score += 2;
-            correctCounter++;
 
-        }
-        if (currentAnswer !== questions[questionCounter].answer) {
-            score -= 1
-            incorrectCounter++;
-            timeleft -= 5;
-        }
-     
+        if (questionCounter !== 0  ) {
+              console.log('try again')
+            if (prevAnswer === questions[questionCounter-1].answer) {
+                score += 2
+                correctCounter++
+               
+               console.log(questions[questionCounter-1].answer)
+            }
+            if (prevAnswer !== questions[questionCounter-1].answer) {
+                score -= 1
+                incorrectCounter++
+                timeleft-=5
+              
+            }
 
+            }
+           
     }
+      
+        // add question text and options.. line 109 -116 means only one page question & options
+       
+        questionNumber.textContent = questionNumList[questionCounter]
+
+        questionText.textContent = questions[questionCounter].question
+        option1.textContent = questions[questionCounter].options[0]
+        option2.textContent = questions[questionCounter].options[1]
+        option3.textContent = questions[questionCounter].options[2]
+        option4.textContent = questions[questionCounter].options[3]
+        //add user scores 
+        userscore.textContent = "Your Current score is: " + score + "\nYou have gotten " + correctCounter + " questions correct and "
+            + incorrectCounter + " incorrect."   
+                   
+    
+    
 
     questionCounter++
-    renderQuestion()
     saveScore()
+   
+}
+
+
+
+
+function saveScore(){
+     highscore =0;
+     localStorage.setItem("userScores", JSON.stringify(
+         { 
+           totalCorrect:correctCounter,
+           totalIncorrect:incorrectCounter,
+           totalScore:score}))
+
+       if(highscore < score) {
+           localStorage.setItem("highscores", JSON.stringify({highscore:score
+            ,initial:userInitials}))
+          
+        }
+ 
 
 }
 
-function renderQuestion(){
-       //render question text into DOM 
-       if(questions[questionCounter]){
-
-           questionNumber.textContent = questionNumList[questionCounter]
-    
-           questionText.textContent = questions[questionCounter].question
-           option1.textContent = questions[questionCounter].options[0]
-           option2.textContent = questions[questionCounter].options[1]
-           option3.textContent = questions[questionCounter].options[2]
-           option4.textContent = questions[questionCounter].options[3]
-           //add user scores 
-           userscore.textContent = "Your Current score is: " + score + "\nYou have gotten " + correctCounter + " questions correct and "
-               + incorrectCounter + " incorrect."
-
-       }
-}
-
-//save score to local Storage
-
-function saveScore() {
-    highscore = 0;
-    localStorage.setItem("userScores", JSON.stringify(
-        {
-            totalCorrect: correctCounter,
-            totalIncorrect: incorrectCounter,
-            totalScore: score
-        }))
-
-    if (highscore < score) {
-        localStorage.setItem("highscores", JSON.stringify({
-            highscore: score
-            , initial: userInitials
-        }))
-    }
-}
 
 var totalQuestionC = document.querySelector("#correct")
 var totalQuestionI = document.querySelector("#wrong")
@@ -177,29 +183,27 @@ var highScore = document.querySelector("#highScore")
 var winnerInitial = document.querySelector("#winnerInitial")
 
 function startQuiz() {
-    userInitials = prompt("Please enter your initial.")
-    // iterate();
-    renderQuestion();
+     userInitials = prompt("Please enter your initial.")
+    iterate();
     hb.setAttribute("class", "hide")
     qb.setAttribute("class", "quiz-box custom-box")
 
     timeleft = 60;
     var interval = setInterval(function () {
-
+        
         timeleft--;
         remaining.textContent = timeleft
-        if (timeleft <= 0 || questionCounter >= questions.length) {
+        if (timeleft <= 0 || questionCounter >= 8) {
 
             clearInterval(interval);
             qb.setAttribute("class", "hide");
             tBtn.setAttribute("class", "btn");
 
-        // render score results into result-counter 
             totalQuestionC.textContent = correctCounter;
             totalQuestionI.textContent = incorrectCounter;
             total.textContent = score;
-            highScore.textContent = score;
-            winnerInitial.textContent = userInitials;
+            highScore.textContent=score;
+            winnerInitial.textContent=userInitials;
 
             rb.setAttribute("class", "result-box custom-box")
 
@@ -208,11 +212,10 @@ function startQuiz() {
 
 
 }
-//return to first start . 
-
+//return to first homepage 
 function bktoStart() {
 
-    hb.setAttribute("class", "home-box custom-box");
+    hb.setAttribute("class","home-box custom-box");
     rb.classList.add("hide");
     tBtn.classList.add("hide");
     questionCounter = 0;
@@ -221,9 +224,7 @@ function bktoStart() {
     incorrectCounter = 0;
 
 }
-
 //Invocations
-
 startButton.addEventListener("click", startQuiz)
 optBtnA.addEventListener("click", iterate)
 optBtnB.addEventListener("click", iterate)
@@ -231,7 +232,7 @@ optBtnC.addEventListener("click", iterate)
 optBtnD.addEventListener("click", iterate)
 
 tBtn.addEventListener("click", bktoStart)
-
+// tBtn.addEventListener("click", iterate)
 
 
 
