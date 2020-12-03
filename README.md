@@ -17,6 +17,7 @@
 
 4.WHEN I answer a question incorrectly
 THEN time is subtracted from the clock(substracted 5seconds)
+and incorrect counter -1  but if you answer correct , I will gain scores +2 
 <img width="854" alt="Screen Shot 2020-12-02 at 11 58 04 AM" src="https://user-images.githubusercontent.com/70460020/100941282-630f1080-34c7-11eb-9886-c31cf5420799.png">
 
 5.WHEN all questions are answered or the timer reaches 0
