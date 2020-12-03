@@ -24,6 +24,7 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score on result counter and also local storage.
 
-<img width="852" alt="Screen Shot 2020-12-02 at 11 58 18 AM" src="https://user-images.githubusercontent.com/70460020/100941386-8c2fa100-34c7-11eb-8ef0-cd00d701741f.png">
 
-<img width="475" alt="Screen Shot 2020-12-02 at 11 58 25 AM" src="https://user-images.githubusercontent.com/70460020/100945750-e3d20a80-34cf-11eb-8343-d77c54c77ba9.png">
+<img width="754" alt="Screen Shot 2020-12-02 at 8 39 53 PM" src="https://user-images.githubusercontent.com/70460020/100953251-2dc2ec80-34e0-11eb-8945-bce71148a611.png">
+
+<img width="492" alt="Screen Shot 2020-12-02 at 8 40 01 PM" src="https://user-images.githubusercontent.com/70460020/100953284-47643400-34e0-11eb-8d52-44f65f35d56e.png">

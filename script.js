@@ -108,21 +108,20 @@ function iterate() {
         else if (this.textContent == "D") {
             currentAnswer = questions[questionCounter].options[3]
         }
+ 
+        //validating answer and  counting scores
+        if (currentAnswer == questions[questionCounter].answer) {
+            score += 2;
+            correctCounter++;
 
-       
+        }
+        if (currentAnswer !== questions[questionCounter].answer) {
+            score -= 1
+            incorrectCounter++;
+            timeleft -= 5;
+        }
 
-            if (currentAnswer == questions[questionCounter].answer) {
-                score += 2;
-                correctCounter++;
-
-            }
-            if (currentAnswer !== questions[questionCounter].answer) {
-                score -= 1
-                incorrectCounter++;
-                timeleft -= 5;
-            }
-
-   
+        //render question text into DOM 
 
         questionNumber.textContent = questionNumList[questionCounter]
 
@@ -143,6 +142,8 @@ function iterate() {
     saveScore()
 
 }
+
+//save score to local Storage
 
 function saveScore() {
     highscore = 0;
@@ -184,6 +185,7 @@ function startQuiz() {
             qb.setAttribute("class", "hide");
             tBtn.setAttribute("class", "btn");
 
+        // render score results into result-counter 
             totalQuestionC.textContent = correctCounter;
             totalQuestionI.textContent = incorrectCounter;
             total.textContent = score;
@@ -197,7 +199,8 @@ function startQuiz() {
 
 
 }
-//return to first homepage 
+//return to first start . 
+
 function bktoStart() {
 
     hb.setAttribute("class", "home-box custom-box");
@@ -209,7 +212,9 @@ function bktoStart() {
     incorrectCounter = 0;
 
 }
+
 //Invocations
+
 startButton.addEventListener("click", startQuiz)
 optBtnA.addEventListener("click", iterate)
 optBtnB.addEventListener("click", iterate)
