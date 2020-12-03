@@ -92,34 +92,37 @@ function iterate() {
 
     if (questionCounter < 7) {
         // comparing with previous answer to match buttons and options 
-        var currentAnswer = ""
+        var previousAnswer=""
         if (this.textContent == "A") {
-            currentAnswer = questions[questionCounter].options[0]
+            previousAnswer = questions[questionCounter-1].options[0]
 
         }
         else if (this.textContent == "B") {
-            currentAnswer = questions[questionCounter].options[1]
+            previousAnswer = questions[questionCounter-1].options[1]
         }
 
         else if (this.textContent == "C") {
-            currentAnswer = questions[questionCounter].options[2]
+            previousAnswer = questions[questionCounter-1].options[2]
         }
 
         else if (this.textContent == "D") {
-            currentAnswer = questions[questionCounter].options[3]
+            currentAnswer = questions[questionCounter-1].options[3]
         }
  
         //validating answer and  counting scores
-        if (currentAnswer == questions[questionCounter].answer) {
+    if (questionCounter != 0)
+    {
+        if (previousAnswer == questions[questionCounter-1].answer) {
             score += 2;
             correctCounter++;
 
         }
-        if (currentAnswer !== questions[questionCounter].answer) {
+        if (previousAnswer !== questions[questionCounter-1].answer) {
             score -= 1
             incorrectCounter++;
             timeleft -= 5;
         }
+    }
 
         //render question text into DOM 
 
