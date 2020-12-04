@@ -112,7 +112,6 @@ function iterate() {
  
         //validating answer and  counting scores
     
-        console.log('grading questions')
         if (currentAnswer == questions[questionCounter].answer) {
             score += 2;
             correctCounter++;
@@ -128,8 +127,8 @@ function iterate() {
     }
 
     questionCounter++
-    renderQuestion()
-    saveScore()
+    renderQuestion();
+    saveScore();
 
 }
 
@@ -178,7 +177,6 @@ var winnerInitial = document.querySelector("#winnerInitial")
 
 function startQuiz() {
     userInitials = prompt("Please enter your initial.")
-    // iterate();
     renderQuestion();
     hb.setAttribute("class", "hide")
     qb.setAttribute("class", "quiz-box custom-box")
